@@ -4,6 +4,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Sandbo World!");
+        Console.Write("what is your name? ");
+        string name = Console.ReadLine();
+
+        Console.WriteLine($"Your name is {name}");
+
+
     }
 }
