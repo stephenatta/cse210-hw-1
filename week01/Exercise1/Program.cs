@@ -3,7 +3,7 @@ using System;
 class Program
 {
     static void Main(string[] args)
-    {
+    {   //Excercise 1 complete
         Console.Write("What is your first name? ");
         string first = Console.ReadLine();
 
