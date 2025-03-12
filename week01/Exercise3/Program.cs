@@ -4,35 +4,43 @@ class Program
 {
     static void Main(string[] args)
     {
-        // For Parts 1 and 2, where the user specified the number...
-        // Console.Write("What is the magic number? ");
-        // int magicNumber = int.Parse(Console.ReadLine());
-        
-        // For Part 3, where we use a random number
-        Random randomGenerator = new Random();
-        int magicNumber = randomGenerator.Next(1, 101);
 
-        int guess = -1;
 
-        // We could also use a do-while loop here...
-        while (guess != magicNumber)
+    Random randomGenerator = new Random();
+    
+    int mNumber = randomGenerator.Next(1, 101); // Generate a random number between 1 and 100
+    int guess = -1; // Initialize guess to a value that does not match magicNumber
+    int guesscount = 0; // Initialize a counter for the number of guesses
+
+    Console.WriteLine("Choose the magic number from 1 - 100 to win the game. ");
+
+    while (guess != mNumber) //while loop
+    {
+
+        Console.Write("What is your guess? ");
+        string guessNumber = Console.ReadLine();
+        guess = int.Parse(guessNumber);
+
+        guesscount++; // Increment the counter with each guess
+
+        if (guess < mNumber)
         {
-            Console.Write("What is your guess? ");
-            guess = int.Parse(Console.ReadLine());
+            Console.WriteLine("Higher");
+        }
 
-            if (magicNumber > guess)
-            {
-                Console.WriteLine("Higher");
-            }
-            else if (magicNumber < guess)
-            {
-                Console.WriteLine("Lower");
-            }
-            else
-            {
-                Console.WriteLine("You guessed it!");
-            }
+        else if (guess > mNumber)
+        {
+            Console.WriteLine("Lower");
+        }
 
-        }                    
+        else
+        {
+            Console.Write("You guessed it! ");
+            Console.WriteLine($"(It took you {guesscount} attemp(s).)");
+        }
     }
+
+    }
+   
+    
 }
