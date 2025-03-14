@@ -38,7 +38,7 @@ class Program
         
         Console.WriteLine($" Your grade is: {letter}");
 
-        //showing remark
+        //showing remark _______
         
         if (grade >= 70)
         {
