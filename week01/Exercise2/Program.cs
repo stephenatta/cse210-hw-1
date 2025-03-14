@@ -50,7 +50,7 @@ class Program
             Console.WriteLine("Sit up! next time.");
         }
 
-        //Adding + and - sign to grade
+        //Adding + and - sign to grade.
         string  sign = "";
         int lastNumber = grade % 10;
 
