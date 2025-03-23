@@ -1,4 +1,8 @@
 // Handles user interaction and manages journal operations.
+// EXTRA FEATURE: Users can enter a filename of their choice when saving and loading journal entries.
+// This allows greater flexibility instead of using a fixed file name.
+// Additionally, the program includes structured error handling when loading a non-existent file.
+// Handles user interaction and manages journal operations.
 using System;
 
 class Program
