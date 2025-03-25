@@ -35,7 +35,7 @@ class Program
 
             if (scripture.IsCompletelyHidden())
             {
-                Console.WriteLine("\nAll words are hidden! Well done.");''
+                Console.WriteLine("\nAll words are hidden! Well done.");
                 break;
             }
 
