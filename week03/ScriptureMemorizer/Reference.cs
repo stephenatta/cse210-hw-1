@@ -1,4 +1,4 @@
-// Reference.cs - Stores the scripture reference
+//Stores the scripture reference
 using System;
 
 public class Reference

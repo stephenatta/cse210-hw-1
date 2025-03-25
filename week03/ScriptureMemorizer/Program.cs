@@ -1,4 +1,4 @@
-// Program.cs - Runs the scripture memorization program
+//Runs the scripture memorization program
 using System;
 
 class Program

@@ -1,4 +1,4 @@
-// Word.cs - Represents a single word in the scripture
+//Represents a single word in the scripture
 using System;
 
 public class Word

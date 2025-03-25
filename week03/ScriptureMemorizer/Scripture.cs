@@ -1,4 +1,4 @@
-// Scripture.cs - Manages scripture text and word hiding
+//Manages scripture text and word hiding
 using System;
 using System.Collections.Generic;
 
