@@ -1,39 +1,26 @@
-//Represents a single word in the scripture
-using System;
-
 public class Word
 {
-    private string _text;
-    private bool _isHidden;
+    private string text;
+    private bool isHidden;
 
-    // Constructor: Word starts as visible
     public Word(string text)
     {
-        _text = text;
-        _isHidden = false;
+        this.text = text;
+        this.isHidden = false;
     }
 
-    // Hide the word
-    public void Hide()
+    public void HideWord()
     {
-        _isHidden = true;
+        isHidden = true;
     }
 
-    // Show the word (for future use)
-    public void Show()
-    {
-        _isHidden = false;
-    }
-
-    // Check if the word is hidden
     public bool IsHidden()
     {
-        return _isHidden;
+        return isHidden;
     }
 
-    // Returns either the word or underscores
     public string GetDisplayText()
     {
-        return _isHidden ? "_____" : _text;
+        return isHidden ? new string('_', text.Length) : text;
     }
 }

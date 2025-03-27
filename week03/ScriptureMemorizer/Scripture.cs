@@ -1,62 +1,40 @@
-//Manages scripture text and word hiding
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Scripture
 {
-    private Reference _reference;
-    private List<Word> _words;
-
-    // Constructor: Takes reference and scripture text
+    private Reference reference;
+    private List<Word> words;
+    
     public Scripture(Reference reference, string text)
     {
-        _reference = reference;
-        _words = new List<Word>();
+        this.reference = reference;
+        words = text.Split(' ').Select(word => new Word(word)).ToList();
+    }
 
-        // Split the text into words and store them in the list
-        string[] wordsArray = text.Split(" ");
-        foreach (string word in wordsArray)
+    public void DisplayScripture()
+    {
+        Console.Clear();
+        Console.WriteLine($"{reference.GetReferenceText()}");
+        Console.WriteLine(string.Join(" ", words.Select(word => word.GetDisplayText())));
+    }
+
+    public void HideWords(int count)
+    {
+        Random rand = new Random();
+        List<Word> visibleWords = words.Where(word => !word.IsHidden()).ToList();
+        
+        for (int i = 0; i < count && visibleWords.Count > 0; i++)
         {
-            _words.Add(new Word(word));
+            Word wordToHide = visibleWords[rand.Next(visibleWords.Count)];
+            wordToHide.HideWord();
+            visibleWords.Remove(wordToHide);
         }
     }
 
-    // Hides a given number of random words
-    public void HideRandomWords(int numberToHide)
+    public bool AllWordsHidden()
     {
-        Random random = new Random();
-        int hiddenCount = 0;
-
-        while (hiddenCount < numberToHide)
-        {
-            int index = random.Next(_words.Count);
-            if (!_words[index].IsHidden()) // Hide only if not already hidden
-            {
-                _words[index].Hide();
-                hiddenCount++;
-            }
-        }
-    }
-
-    // Returns the scripture with hidden words
-    public string GetDisplayText()
-    {
-        string scriptureText = _reference.GetDisplayText() + " - ";
-        foreach (Word word in _words)
-        {
-            scriptureText += word.GetDisplayText() + " ";
-        }
-        return scriptureText.Trim();
-    }
-
-    // Checks if all words are hidden
-    public bool IsCompletelyHidden()
-    {
-        foreach (Word word in _words)
-        {
-            if (!word.IsHidden())
-                return false;
-        }
-        return true;
+        return words.All(word => word.IsHidden());
     }
 }
