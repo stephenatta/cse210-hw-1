@@ -1,59 +1,60 @@
 using System;
-using System.Collections.Generic;
 
 class Program
 {
     static void Main()
     {
-        List<Activity> activities = new List<Activity>
-        {
-            new BreathingActivity(),
-            new ReflectionActivity(),
-            new ListingActivity()
-        };
+        Console.WriteLine("Welcome to the Mindfulness Program!");
 
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("Mindfulness Program");
-            Console.WriteLine("1. Breathing Activity");
-            Console.WriteLine("2. Reflection Activity");
-            Console.WriteLine("3. Listing Activity");
-            Console.WriteLine("4. Show Log");
-            Console.WriteLine("5. Exit");
-            Console.Write("Choose an option: ");
-
+            Console.WriteLine("\nSelect an activity:");
+            Console.WriteLine("1. Breathing Exercise");
+            Console.WriteLine("2. Reflection Exercise");
+            Console.WriteLine("3. Listing Exercise");
+            Console.WriteLine("4. Exit");
+            Console.Write("Enter your choice: ");
+            
             string choice = Console.ReadLine();
-
-            if (choice == "5")
-                break;
 
             if (choice == "4")
             {
-                LogHelper.ShowLog();
-                Console.WriteLine("Press Enter to continue...");
-                Console.ReadLine();
+                Console.WriteLine("Goodbye!");
+                break;
+            }
+
+            Console.Write("Enter duration in seconds: ");
+            if (!int.TryParse(Console.ReadLine(), out int duration) || duration <= 0)
+            {
+                Console.WriteLine("Invalid duration. Please enter a positive number.");
                 continue;
             }
 
-            if (int.TryParse(choice, out int index) && index >= 1 && index <= 3)
+            Activity activity = choice switch
             {
-                Console.Write("Enter duration in seconds: ");
-                if (int.TryParse(Console.ReadLine(), out int duration) && duration > 0)
-                {
-                    activities[index - 1].Run(duration);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid duration. Please enter a positive number.");
-                    Console.ReadLine();
-                }
+                "1" => new BreathingActivity(duration),
+                "2" => new ReflectionActivity(duration),
+                "3" => new ListingActivity(duration),
+                _ => null
+            };
+
+            if (activity != null)
+            {
+                activity.Run();
+                ActivityLog.SaveToLog(activity.GetName(), duration);
             }
             else
             {
-                Console.WriteLine("Invalid choice. Press Enter to continue...");
-                Console.ReadLine();
+                Console.WriteLine("Invalid choice. Please select a valid option.");
             }
         }
     }
 }
+
+/*
+ * - EXCEEDED REQUIREMENTS:
+ * - Added logging: Activities are saved to 'activity_log.txt' after each session.
+ * - Dynamic duration: Users can set their own duration for activities.
+ * - Improved randomization: Reflection prompts do not repeat until all are used.
+ * - Enhanced animations: Breathing activity text smoothly expands and contracts.
+ */

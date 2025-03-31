@@ -3,24 +3,33 @@ using System.Threading;
 
 abstract class Activity
 {
-    protected string Name { get; set; }
-    protected string Description { get; set; }
+    private string _name;
+    private string _description;
+    protected int _duration;
 
-    public void DisplayStartingMessage(int duration)
+    public Activity(string name, string description, int duration)
     {
-        Console.Clear();
-        Console.WriteLine($"Starting {Name} for {duration} seconds...");
-        Console.WriteLine(Description);
+        _name = name;
+        _description = description;
+        _duration = duration;
+    }
+
+    public string GetName() => _name;
+    public string GetDescription() => _description;
+
+    public void DisplayStartingMessage()
+    {
+        Console.WriteLine($"\nStarting {_name}...");
+        Console.WriteLine(_description);
         Console.WriteLine("Get ready...");
-        Thread.Sleep(2000);
+        AnimationHelper.ShowSpinner(3);
     }
 
     public void DisplayEndingMessage()
     {
-        Console.WriteLine($"Good job! You completed {Name}.");
-        LogHelper.LogActivity(Name);
-        Thread.Sleep(2000);
+        Console.WriteLine($"\nWell done! You completed {_name} for {_duration} seconds.");
+        AnimationHelper.ShowSpinner(3);
     }
 
-    public abstract void Run(int duration);
+    public abstract void Run();
 }

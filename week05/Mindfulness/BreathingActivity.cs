@@ -3,23 +3,19 @@ using System.Threading;
 
 class BreathingActivity : Activity
 {
-    public BreathingActivity()
-    {
-        Name = "Breathing Activity";
-        Description = "Focus on breathing in and out slowly.";
-    }
+    public BreathingActivity(int duration)
+        : base("Breathing Exercise", "Focus on your breath as you inhale and exhale.", duration) { }
 
-    public override void Run(int duration)
+    public override void Run()
     {
-        DisplayStartingMessage(duration);
+        DisplayStartingMessage();
 
-        DateTime endTime = DateTime.Now.AddSeconds(duration);
-        while (DateTime.Now < endTime)
+        for (int i = 0; i < _duration / 4; i++)
         {
-            Console.Write("Breathe in...");
-            AnimationHelper.Countdown(3);
-            Console.Write("Breathe out...");
-            AnimationHelper.Countdown(3);
+            Console.Write("Breathe in... ");
+            AnimationHelper.ShowGrowingText();
+            Console.Write("Breathe out... ");
+            AnimationHelper.ShowShrinkingText();
         }
 
         DisplayEndingMessage();

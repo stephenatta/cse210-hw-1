@@ -1,31 +1,37 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 class ReflectionActivity : Activity
 {
-    private List<string> prompts = new List<string>
+    private static readonly List<string> _prompts = new()
     {
-        "Think about a time you overcame a challenge.",
+        "Think of a time you overcame a challenge.",
         "Recall a moment when you felt truly happy.",
-        "Consider a time when you helped someone in need."
+        "What is one lesson you've learned from failure?"
     };
 
-    public ReflectionActivity()
+    private static List<string> _availablePrompts = new(_prompts);
+
+    public ReflectionActivity(int duration)
+        : base("Reflection Exercise", "Ponder a meaningful question and reflect.", duration) { }
+
+    private string GetRandomPrompt()
     {
-        Name = "Reflection Activity";
-        Description = "Think deeply about meaningful experiences in your life.";
+        if (_availablePrompts.Count == 0)
+            _availablePrompts = new List<string>(_prompts);
+
+        Random random = new();
+        int index = random.Next(_availablePrompts.Count);
+        string prompt = _availablePrompts[index];
+        _availablePrompts.RemoveAt(index);
+        return prompt;
     }
 
-    public override void Run(int duration)
+    public override void Run()
     {
-        DisplayStartingMessage(duration);
-
-        Random rand = new Random();
-        string prompt = prompts[rand.Next(prompts.Count)];
-        Console.WriteLine(prompt);
-        AnimationHelper.Spinner(duration);
-
+        DisplayStartingMessage();
+        Console.WriteLine($"Prompt: {GetRandomPrompt()}");
+        AnimationHelper.ShowSpinner(_duration);
         DisplayEndingMessage();
     }
 }

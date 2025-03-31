@@ -3,30 +3,24 @@ using System.Collections.Generic;
 
 class ListingActivity : Activity
 {
-    public ListingActivity()
+    public ListingActivity(int duration)
+        : base("Listing Exercise", "List as many positive things as possible.", duration) { }
+
+    public override void Run()
     {
-        Name = "Listing Activity";
-        Description = "List as many things as you can related to a given prompt.";
-    }
+        DisplayStartingMessage();
+        List<string> responses = new();
 
-    public override void Run(int duration)
-    {
-        DisplayStartingMessage(duration);
-
-        Console.WriteLine("List things you are grateful for:");
-        Console.WriteLine($"You have {duration} seconds. Start typing...");
-
-        List<string> responses = new List<string>();
-        DateTime endTime = DateTime.Now.AddSeconds(duration);
+        Console.WriteLine("Start listing:");
+        DateTime endTime = DateTime.Now.AddSeconds(_duration);
 
         while (DateTime.Now < endTime)
         {
-            string input = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(input))
-                responses.Add(input);
+            Console.Write("> ");
+            responses.Add(Console.ReadLine());
         }
 
-        Console.WriteLine($"You listed {responses.Count} items.");
+        Console.WriteLine($"You listed {responses.Count} items!");
         DisplayEndingMessage();
     }
 }
